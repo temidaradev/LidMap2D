@@ -29,24 +29,60 @@ func init() {
 	fontFaceSource = s
 }
 
+const (
+	normalFontSize = 24
+	bigFontSize    = 48
+)
+
 func (m *Menu) Title(screen *ebiten.Image) {
 	screen.Fill(Grey)
-	const (
-		normalFontSize = 24
-		bigFontSize    = 48
-	)
 
 	const x = 200
 
 	op := &text.DrawOptions{}
 	op.GeoM.Translate(x, 60)
 	op.ColorScale.ScaleWithColor(color.White)
+
 	text.Draw(screen, "LidMap2D", &text.GoTextFace{
 		Source: fontFaceSource,
 		Size:   bigFontSize,
 	}, op)
 }
 
-func (m *Menu) Button() {
+func (m *Menu) CreateButton(screen *ebiten.Image) {
+	button := ebiten.NewImage(150, 40)
+	button.Fill(color.RGBA{50, 50, 50, 255})
 
+	op := &ebiten.DrawImageOptions{}
+	op.GeoM.Translate(240, 200)
+
+	screen.DrawImage(button, op)
+
+	op2 := &text.DrawOptions{}
+	op2.GeoM.Translate(278, 204)
+	op2.ColorScale.ScaleWithColor(color.White)
+
+	text.Draw(screen, "Create", &text.GoTextFace{
+		Source: fontFaceSource,
+		Size:   normalFontSize,
+	}, op2)
+}
+
+func (m *Menu) SettingButton(screen *ebiten.Image) {
+	button := ebiten.NewImage(150, 40)
+	button.Fill(color.RGBA{50, 50, 50, 255})
+
+	op := &ebiten.DrawImageOptions{}
+	op.GeoM.Translate(240, 250)
+
+	screen.DrawImage(button, op)
+
+	op2 := &text.DrawOptions{}
+	op2.GeoM.Translate(270, 254)
+	op2.ColorScale.ScaleWithColor(color.White)
+
+	text.Draw(screen, "Settings", &text.GoTextFace{
+		Source: fontFaceSource,
+		Size:   normalFontSize,
+	}, op2)
 }
