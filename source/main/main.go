@@ -1,12 +1,7 @@
 package game
 
 import (
-	"image/png"
-	"log"
-	"os"
-
 	"github.com/hajimehoshi/ebiten/v2"
-	"github.com/hajimehoshi/ebiten/v2/inpututil"
 	"github.com/lidldev/LidMap2D/source/menu"
 )
 
@@ -22,6 +17,7 @@ func NewGame() *Game {
 }
 
 func (g *Game) Update() error {
+	g.m.CreateButtonAction()
 	return nil
 }
 
@@ -36,13 +32,15 @@ func (g *Game) Draw(screen *ebiten.Image) {
 		g.m.SettingButton(screen)
 	}
 
-	if inpututil.IsKeyJustPressed(ebiten.KeyS) {
-		f, err := os.Create("screenshot.png")
-		if err != nil {
-			log.Fatal("can't create file: ", err)
+	/*
+		if inpututil.IsKeyJustPressed(ebiten.KeyS) {
+			f, err := os.Create("screenshot.png")
+			if err != nil {
+				log.Fatal("can't create file: ", err)
+			}
+			png.Encode(f, screen)
 		}
-		png.Encode(f, screen)
-	}
+	*/
 }
 
 func (g *Game) Layout(outsideWidth, outsideHeight int) (int, int) {

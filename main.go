@@ -12,6 +12,7 @@ func main() {
 
 	ebiten.SetWindowResizingMode(ebiten.WindowResizingModeOnlyFullscreenEnabled)
 	ebiten.SetWindowTitle("LidMap2D")
+
 	if err := ebiten.RunGame(g); err != nil {
 		log.Fatal(err)
 	}
