@@ -1,8 +1,14 @@
 package game
 
-import "github.com/hajimehoshi/ebiten/v2"
+import (
+	"github.com/hajimehoshi/ebiten/v2"
+	"github.com/lidldev/LidMap2D/source/menu"
+)
 
-type Game struct{}
+type Game struct {
+	m     menu.Menu
+	mFull menu.MenuFullScreen
+}
 
 func NewGame() *Game {
 	g := &Game{}
@@ -15,6 +21,11 @@ func (g *Game) Update() error {
 }
 
 func (g *Game) Draw(screen *ebiten.Image) {
+	if ebiten.IsFullscreen() {
+		g.mFull.TitleFullScreen(screen)
+	} else {
+		g.m.Title(screen)
+	}
 
 }
 
