@@ -1,13 +1,15 @@
 package game
 
 import (
+	"image/color"
+
 	"github.com/hajimehoshi/ebiten/v2"
-	"github.com/lidldev/LidMap2D/source/menu"
 )
 
 type Game struct {
-	m     menu.Menu
-	mFull menu.MenuFullScreen
+	createMap bool
+	m         Menu
+	mFull     MenuFullScreen
 }
 
 func NewGame() *Game {
@@ -27,9 +29,11 @@ func (g *Game) Draw(screen *ebiten.Image) {
 		g.mFull.SettingButtonFullScreen(screen)
 	} else {
 		g.m.Title(screen)
-		g.m.CreateButton(screen)
-		///if g.
+		g.m.CreateButton(screen, g)
 		g.m.SettingButton(screen)
+		if g.createMap {
+			screen.Fill(color.Black)
+		}
 	}
 
 	/*

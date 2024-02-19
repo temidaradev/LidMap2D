@@ -1,4 +1,4 @@
-package menu
+package game
 
 import (
 	"bytes"
@@ -11,9 +11,16 @@ import (
 	"github.com/lidldev/LidMap2D/assets"
 )
 
-type MenuFullScreen struct {
-	createMap bool
+type Menu struct {
 }
+
+var (
+	fontFaceSource *text.GoTextFaceSource
+)
+
+var (
+	Grey = color.RGBA{25, 25, 25, 255}
+)
 
 func init() {
 	s, err := text.NewGoTextFaceSource(bytes.NewReader(assets.Font_ttf))
@@ -23,48 +30,51 @@ func init() {
 	fontFaceSource = s
 }
 
-func (m *MenuFullScreen) TitleFullScreen(screen *ebiten.Image) {
-	screen.Fill(Grey)
-	const (
-		normalFontSize = 24
-		bigFontSize    = 100
-	)
+const (
+	normalFontSize = 24
+	bigFontSize    = 48
+)
 
-	const x = 490
+func (m *Menu) Title(screen *ebiten.Image) {
+	screen.Fill(Grey)
+
+	const x = 200
 
 	op := &text.DrawOptions{}
-	op.GeoM.Translate(x, 140)
+	op.GeoM.Translate(x, 60)
 	op.ColorScale.ScaleWithColor(color.White)
+
 	text.Draw(screen, "LidMap2D", &text.GoTextFace{
 		Source: fontFaceSource,
 		Size:   bigFontSize,
 	}, op)
 }
 
-func (m *MenuFullScreen) CreateButtonFullScreen(screen *ebiten.Image) {
-	button := ebiten.NewImage(180, 50)
+func (m *Menu) CreateButton(screen *ebiten.Image, g *Game) {
+	button := ebiten.NewImage(150, 40)
 	button.Fill(color.RGBA{50, 50, 50, 255})
 
 	op := &ebiten.DrawImageOptions{}
-	op.GeoM.Translate(630, 400)
+	op.GeoM.Translate(240, 200)
 
 	screen.DrawImage(button, op)
 
 	op2 := &text.DrawOptions{}
-	op2.GeoM.Translate(683, 409)
+	op2.GeoM.Translate(278, 204)
 	op2.ColorScale.ScaleWithColor(color.White)
 
 	cx, cy := ebiten.CursorPosition()
 
-	if button.Bounds().Min.X+630 <= cx && cx < button.Bounds().Max.X+630 && button.Bounds().Min.Y+400 <= cy && cy < button.Bounds().Max.Y+400 {
+	if button.Bounds().Min.X+240 <= cx && cx < button.Bounds().Max.X+240 && button.Bounds().Min.Y+200 <= cy && cy < button.Bounds().Max.Y+200 {
 		op2.ColorScale.ScaleWithColor(color.RGBA{20, 20, 30, 255})
 		button.Fill(color.RGBA{70, 70, 70, 255})
 		screen.DrawImage(button, op)
 	}
 
 	if inpututil.IsMouseButtonJustPressed(ebiten.MouseButtonLeft) {
-		if button.Bounds().Min.X+630 <= cx && cx < button.Bounds().Max.X+630 && button.Bounds().Min.Y+2400 <= cy && cy < button.Bounds().Max.Y+400 {
+		if button.Bounds().Min.X+240 <= cx && cx < button.Bounds().Max.X+240 && button.Bounds().Min.Y+200 <= cy && cy < button.Bounds().Max.Y+200 {
 			log.Printf("Create")
+			g.createMap = true
 		}
 	}
 
@@ -74,31 +84,30 @@ func (m *MenuFullScreen) CreateButtonFullScreen(screen *ebiten.Image) {
 	}, op2)
 }
 
-func (m *MenuFullScreen) SettingButtonFullScreen(screen *ebiten.Image) {
-	button := ebiten.NewImage(180, 50)
+func (m *Menu) SettingButton(screen *ebiten.Image) {
+	button := ebiten.NewImage(150, 40)
 	button.Fill(color.RGBA{50, 50, 50, 255})
 
 	op := &ebiten.DrawImageOptions{}
-	op.GeoM.Translate(630, 465)
+	op.GeoM.Translate(240, 250)
 
 	screen.DrawImage(button, op)
 
 	op2 := &text.DrawOptions{}
-	op2.GeoM.Translate(674, 473)
+	op2.GeoM.Translate(270, 254)
 	op2.ColorScale.ScaleWithColor(color.White)
 
 	cx, cy := ebiten.CursorPosition()
 
-	if button.Bounds().Min.X+530 <= cx && cx < button.Bounds().Max.X+530 && button.Bounds().Min.Y+465 <= cy && cy < button.Bounds().Max.Y+465 {
+	if button.Bounds().Min.X+240 <= cx && cx < button.Bounds().Max.X+240 && button.Bounds().Min.Y+250 <= cy && cy < button.Bounds().Max.Y+250 {
 		op2.ColorScale.ScaleWithColor(color.RGBA{20, 20, 30, 255})
 		button.Fill(color.RGBA{70, 70, 70, 255})
 		screen.DrawImage(button, op)
 	}
 
 	if inpututil.IsMouseButtonJustPressed(ebiten.MouseButtonLeft) {
-		if button.Bounds().Min.X+530 <= cx && cx < button.Bounds().Max.X+530 && button.Bounds().Min.Y+465 <= cy && cy < button.Bounds().Max.Y+465 {
+		if button.Bounds().Min.X+240 <= cx && cx < button.Bounds().Max.X+240 && button.Bounds().Min.Y+250 <= cy && cy < button.Bounds().Max.Y+250 {
 			log.Printf("Settings")
-			m.createMap = true
 		}
 	}
 
