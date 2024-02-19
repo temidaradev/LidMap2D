@@ -17,7 +17,6 @@ func NewGame() *Game {
 }
 
 func (g *Game) Update() error {
-	g.m.CreateButtonAction()
 	return nil
 }
 

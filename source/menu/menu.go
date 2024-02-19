@@ -11,9 +11,7 @@ import (
 	"github.com/lidldev/LidMap2D/assets"
 )
 
-type Menu struct {
-	button *ebiten.Image
-}
+type Menu struct{}
 
 var (
 	fontFaceSource *text.GoTextFaceSource
@@ -52,23 +50,29 @@ func (m *Menu) Title(screen *ebiten.Image) {
 }
 
 func (m *Menu) CreateButton(screen *ebiten.Image) {
-	m.button = ebiten.NewImage(150, 40)
-	m.button.Fill(color.RGBA{50, 50, 50, 255})
+	button := ebiten.NewImage(150, 40)
+	button.Fill(color.RGBA{50, 50, 50, 255})
 
 	op := &ebiten.DrawImageOptions{}
 	op.GeoM.Translate(240, 200)
 
-	screen.DrawImage(m.button, op)
+	screen.DrawImage(button, op)
 
 	op2 := &text.DrawOptions{}
 	op2.GeoM.Translate(278, 204)
 	op2.ColorScale.ScaleWithColor(color.White)
 
 	cx, cy := ebiten.CursorPosition()
+
+	if button.Bounds().Min.X+240 <= cx && cx < button.Bounds().Max.X+240 && button.Bounds().Min.Y+200 <= cy && cy < button.Bounds().Max.Y+200 {
+		op2.ColorScale.ScaleWithColor(color.RGBA{20, 20, 30, 255})
+		button.Fill(color.RGBA{70, 70, 70, 255})
+		screen.DrawImage(button, op)
+	}
+
 	if inpututil.IsMouseButtonJustPressed(ebiten.MouseButtonLeft) {
-		if m.button.Bounds().Min.X+240 <= cx && cx < m.button.Bounds().Max.X+240 && m.button.Bounds().Min.Y+200 <= cy && cy < m.button.Bounds().Max.Y+200 {
-			op2.ColorScale.ScaleWithColor(color.RGBA{255, 0, 0, 255})
-			log.Printf("nbnbnbnbnbnbnn")
+		if button.Bounds().Min.X+240 <= cx && cx < button.Bounds().Max.X+240 && button.Bounds().Min.Y+200 <= cy && cy < button.Bounds().Max.Y+200 {
+			log.Printf("Create")
 		}
 	}
 
@@ -76,17 +80,6 @@ func (m *Menu) CreateButton(screen *ebiten.Image) {
 		Source: fontFaceSource,
 		Size:   normalFontSize,
 	}, op2)
-
-	//if image.Pt(x, y).In(rect.Bounds().Add(translateX, translateY)) {
-}
-
-func (m *Menu) CreateButtonAction() {
-	// cx, cy := ebiten.CursorPosition()
-	// if inpututil.IsMouseButtonJustPressed(ebiten.MouseButtonLeft) {
-	// 	if m.button.Bounds().Min.X+240 <= cx && cx < m.button.Bounds().Max.X+240 && m.button.Bounds().Min.Y+200 <= cy && cy < m.button.Bounds().Max.Y+200 {
-	// 		log.Print("nngggsdgsd")
-	// 	}
-	// }
 }
 
 func (m *Menu) SettingButton(screen *ebiten.Image) {
@@ -101,6 +94,20 @@ func (m *Menu) SettingButton(screen *ebiten.Image) {
 	op2 := &text.DrawOptions{}
 	op2.GeoM.Translate(270, 254)
 	op2.ColorScale.ScaleWithColor(color.White)
+
+	cx, cy := ebiten.CursorPosition()
+
+	if button.Bounds().Min.X+240 <= cx && cx < button.Bounds().Max.X+240 && button.Bounds().Min.Y+250 <= cy && cy < button.Bounds().Max.Y+250 {
+		op2.ColorScale.ScaleWithColor(color.RGBA{20, 20, 30, 255})
+		button.Fill(color.RGBA{70, 70, 70, 255})
+		screen.DrawImage(button, op)
+	}
+
+	if inpututil.IsMouseButtonJustPressed(ebiten.MouseButtonLeft) {
+		if button.Bounds().Min.X+240 <= cx && cx < button.Bounds().Max.X+240 && button.Bounds().Min.Y+250 <= cy && cy < button.Bounds().Max.Y+250 {
+			log.Printf("Settings")
+		}
+	}
 
 	text.Draw(screen, "Settings", &text.GoTextFace{
 		Source: fontFaceSource,
