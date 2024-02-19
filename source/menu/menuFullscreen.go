@@ -6,11 +6,14 @@ import (
 	"log"
 
 	"github.com/hajimehoshi/ebiten/v2"
+	"github.com/hajimehoshi/ebiten/v2/inpututil"
 	"github.com/hajimehoshi/ebiten/v2/text/v2"
 	"github.com/lidldev/LidMap2D/assets"
 )
 
-type MenuFullScreen struct{}
+type MenuFullScreen struct {
+	createMap bool
+}
 
 func init() {
 	s, err := text.NewGoTextFaceSource(bytes.NewReader(assets.Font_ttf))
@@ -51,6 +54,20 @@ func (m *MenuFullScreen) CreateButtonFullScreen(screen *ebiten.Image) {
 	op2.GeoM.Translate(683, 409)
 	op2.ColorScale.ScaleWithColor(color.White)
 
+	cx, cy := ebiten.CursorPosition()
+
+	if button.Bounds().Min.X+630 <= cx && cx < button.Bounds().Max.X+630 && button.Bounds().Min.Y+400 <= cy && cy < button.Bounds().Max.Y+400 {
+		op2.ColorScale.ScaleWithColor(color.RGBA{20, 20, 30, 255})
+		button.Fill(color.RGBA{70, 70, 70, 255})
+		screen.DrawImage(button, op)
+	}
+
+	if inpututil.IsMouseButtonJustPressed(ebiten.MouseButtonLeft) {
+		if button.Bounds().Min.X+630 <= cx && cx < button.Bounds().Max.X+630 && button.Bounds().Min.Y+2400 <= cy && cy < button.Bounds().Max.Y+400 {
+			log.Printf("Create")
+		}
+	}
+
 	text.Draw(screen, "Create", &text.GoTextFace{
 		Source: fontFaceSource,
 		Size:   normalFontSize,
@@ -69,6 +86,21 @@ func (m *MenuFullScreen) SettingButtonFullScreen(screen *ebiten.Image) {
 	op2 := &text.DrawOptions{}
 	op2.GeoM.Translate(674, 473)
 	op2.ColorScale.ScaleWithColor(color.White)
+
+	cx, cy := ebiten.CursorPosition()
+
+	if button.Bounds().Min.X+530 <= cx && cx < button.Bounds().Max.X+530 && button.Bounds().Min.Y+465 <= cy && cy < button.Bounds().Max.Y+465 {
+		op2.ColorScale.ScaleWithColor(color.RGBA{20, 20, 30, 255})
+		button.Fill(color.RGBA{70, 70, 70, 255})
+		screen.DrawImage(button, op)
+	}
+
+	if inpututil.IsMouseButtonJustPressed(ebiten.MouseButtonLeft) {
+		if button.Bounds().Min.X+530 <= cx && cx < button.Bounds().Max.X+530 && button.Bounds().Min.Y+465 <= cy && cy < button.Bounds().Max.Y+465 {
+			log.Printf("Settings")
+			m.createMap = true
+		}
+	}
 
 	text.Draw(screen, "Settings", &text.GoTextFace{
 		Source: fontFaceSource,

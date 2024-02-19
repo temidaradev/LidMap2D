@@ -28,6 +28,7 @@ func (g *Game) Draw(screen *ebiten.Image) {
 	} else {
 		g.m.Title(screen)
 		g.m.CreateButton(screen)
+		///if g.
 		g.m.SettingButton(screen)
 	}
 

@@ -1,4 +1,4 @@
-package menu
+package game
 
 import (
 	"bytes"
@@ -11,7 +11,9 @@ import (
 	"github.com/lidldev/LidMap2D/assets"
 )
 
-type Menu struct{}
+type Menu struct {
+	createMap bool
+}
 
 var (
 	fontFaceSource *text.GoTextFaceSource
@@ -73,6 +75,7 @@ func (m *Menu) CreateButton(screen *ebiten.Image) {
 	if inpututil.IsMouseButtonJustPressed(ebiten.MouseButtonLeft) {
 		if button.Bounds().Min.X+240 <= cx && cx < button.Bounds().Max.X+240 && button.Bounds().Min.Y+200 <= cy && cy < button.Bounds().Max.Y+200 {
 			log.Printf("Create")
+			m.createMap = true
 		}
 	}
 

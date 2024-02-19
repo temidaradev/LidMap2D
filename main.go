@@ -4,7 +4,7 @@ import (
 	"log"
 
 	"github.com/hajimehoshi/ebiten/v2"
-	game "github.com/lidldev/LidMap2D/source/main"
+	game "github.com/lidldev/LidMap2D/source"
 )
 
 func main() {
