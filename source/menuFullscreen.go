@@ -107,3 +107,9 @@ func (m *MenuFullScreen) SettingButtonFullScreen(screen *ebiten.Image) {
 		Size:   normalFontSize,
 	}, op2)
 }
+
+func (m *MenuFullScreen) showFullMenu(screen *ebiten.Image, g *Game) {
+	m.TitleFullScreen(screen)
+	m.CreateButtonFullScreen(screen)
+	m.SettingButtonFullScreen(screen)
+}

@@ -2,8 +2,12 @@ package game
 
 import (
 	"image/color"
+	"image/png"
+	"log"
+	"os"
 
 	"github.com/hajimehoshi/ebiten/v2"
+	"github.com/hajimehoshi/ebiten/v2/inpututil"
 )
 
 type Game struct {
@@ -28,23 +32,23 @@ func (g *Game) Draw(screen *ebiten.Image) {
 		g.mFull.CreateButtonFullScreen(screen)
 		g.mFull.SettingButtonFullScreen(screen)
 	} else {
-		g.m.Title(screen)
-		g.m.CreateButton(screen, g)
-		g.m.SettingButton(screen)
+		// g.m.Title(screen)
+		// g.m.CreateButton(screen, g)
+		// g.m.SettingButton(screen)
+
+		g.m.showMenu(screen, g)
 		if g.createMap {
 			screen.Fill(color.Black)
 		}
 	}
 
-	/*
-		if inpututil.IsKeyJustPressed(ebiten.KeyS) {
-			f, err := os.Create("screenshot.png")
-			if err != nil {
-				log.Fatal("can't create file: ", err)
-			}
-			png.Encode(f, screen)
+	if inpututil.IsKeyJustPressed(ebiten.KeyS) {
+		f, err := os.Create("screenshot.png")
+		if err != nil {
+			log.Fatal("can't create file: ", err)
 		}
-	*/
+		png.Encode(f, screen)
+	}
 }
 
 func (g *Game) Layout(outsideWidth, outsideHeight int) (int, int) {

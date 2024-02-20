@@ -116,3 +116,9 @@ func (m *Menu) SettingButton(screen *ebiten.Image) {
 		Size:   normalFontSize,
 	}, op2)
 }
+
+func (m *Menu) showMenu(screen *ebiten.Image, g *Game) {
+	m.Title(screen)
+	m.CreateButton(screen, g)
+	m.SettingButton(screen)
+}
