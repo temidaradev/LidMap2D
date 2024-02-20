@@ -41,7 +41,7 @@ func (m *MenuFullScreen) TitleFullScreen(screen *ebiten.Image) {
 	}, op)
 }
 
-func (m *MenuFullScreen) CreateButtonFullScreen(screen *ebiten.Image) {
+func (m *MenuFullScreen) CreateButtonFullScreen(screen *ebiten.Image, g *Game) {
 	button := ebiten.NewImage(180, 50)
 	button.Fill(color.RGBA{50, 50, 50, 255})
 
@@ -63,8 +63,9 @@ func (m *MenuFullScreen) CreateButtonFullScreen(screen *ebiten.Image) {
 	}
 
 	if inpututil.IsMouseButtonJustPressed(ebiten.MouseButtonLeft) {
-		if button.Bounds().Min.X+630 <= cx && cx < button.Bounds().Max.X+630 && button.Bounds().Min.Y+2400 <= cy && cy < button.Bounds().Max.Y+400 {
+		if button.Bounds().Min.X+630 <= cx && cx < button.Bounds().Max.X+630 && button.Bounds().Min.Y+400 <= cy && cy < button.Bounds().Max.Y+400 {
 			log.Printf("Create")
+			g.createFullMap = true
 		}
 	}
 
@@ -89,14 +90,14 @@ func (m *MenuFullScreen) SettingButtonFullScreen(screen *ebiten.Image) {
 
 	cx, cy := ebiten.CursorPosition()
 
-	if button.Bounds().Min.X+530 <= cx && cx < button.Bounds().Max.X+530 && button.Bounds().Min.Y+465 <= cy && cy < button.Bounds().Max.Y+465 {
+	if button.Bounds().Min.X+630 <= cx && cx < button.Bounds().Max.X+630 && button.Bounds().Min.Y+465 <= cy && cy < button.Bounds().Max.Y+465 {
 		op2.ColorScale.ScaleWithColor(color.RGBA{20, 20, 30, 255})
 		button.Fill(color.RGBA{70, 70, 70, 255})
 		screen.DrawImage(button, op)
 	}
 
 	if inpututil.IsMouseButtonJustPressed(ebiten.MouseButtonLeft) {
-		if button.Bounds().Min.X+530 <= cx && cx < button.Bounds().Max.X+530 && button.Bounds().Min.Y+465 <= cy && cy < button.Bounds().Max.Y+465 {
+		if button.Bounds().Min.X+630 <= cx && cx < button.Bounds().Max.X+630 && button.Bounds().Min.Y+465 <= cy && cy < button.Bounds().Max.Y+465 {
 			log.Printf("Settings")
 			m.createMap = true
 		}
@@ -110,6 +111,6 @@ func (m *MenuFullScreen) SettingButtonFullScreen(screen *ebiten.Image) {
 
 func (m *MenuFullScreen) showFullMenu(screen *ebiten.Image, g *Game) {
 	m.TitleFullScreen(screen)
-	m.CreateButtonFullScreen(screen)
+	m.CreateButtonFullScreen(screen, g)
 	m.SettingButtonFullScreen(screen)
 }

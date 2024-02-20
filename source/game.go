@@ -11,9 +11,10 @@ import (
 )
 
 type Game struct {
-	createMap bool
-	m         Menu
-	mFull     MenuFullScreen
+	createMap     bool
+	createFullMap bool
+	m             Menu
+	mFull         MenuFullScreen
 }
 
 func NewGame() *Game {
@@ -28,9 +29,13 @@ func (g *Game) Update() error {
 
 func (g *Game) Draw(screen *ebiten.Image) {
 	if ebiten.IsFullscreen() {
-		g.mFull.TitleFullScreen(screen)
-		g.mFull.CreateButtonFullScreen(screen)
-		g.mFull.SettingButtonFullScreen(screen)
+		// g.mFull.TitleFullScreen(screen)
+		// g.mFull.CreateButtonFullScreen(screen, g)
+		// g.mFull.SettingButtonFullScreen(screen)
+		g.mFull.showFullMenu(screen, g)
+		if g.createFullMap {
+			screen.Fill(color.White)
+		}
 	} else {
 		// g.m.Title(screen)
 		// g.m.CreateButton(screen, g)
