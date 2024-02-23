@@ -42,9 +42,11 @@ func (g *Game) Draw(screen *ebiten.Image) {
 		// g.m.SettingButton(screen)
 
 		g.m.showMenu(screen, g)
-		if g.createMap {
-			screen.Fill(color.Black)
-		}
+	}
+
+	if g.createMap {
+		screen.Fill(color.Black)
+		g.m.clearMenu(screen)
 	}
 
 	if inpututil.IsKeyJustPressed(ebiten.KeyS) {

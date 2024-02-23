@@ -122,3 +122,7 @@ func (m *Menu) showMenu(screen *ebiten.Image, g *Game) {
 	m.CreateButton(screen, g)
 	m.SettingButton(screen)
 }
+
+func (m *Menu) clearMenu(screen *ebiten.Image) {
+	screen.Clear()
+}
