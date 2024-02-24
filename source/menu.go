@@ -77,6 +77,7 @@ func (m *Menu) CreateButton(screen *ebiten.Image, g *Game) {
 			g.createMap = true
 		}
 	}
+	//gdfshvsdln
 
 	text.Draw(screen, "Create", &text.GoTextFace{
 		Source: fontFaceSource,
