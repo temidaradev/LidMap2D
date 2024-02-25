@@ -12,6 +12,8 @@ import (
 )
 
 type Menu struct {
+	createButton   *ebiten.Image
+	settingsButton *ebiten.Image
 }
 
 var (
@@ -51,13 +53,13 @@ func (m *Menu) Title(screen *ebiten.Image) {
 }
 
 func (m *Menu) CreateButton(screen *ebiten.Image, g *Game) {
-	button := ebiten.NewImage(150, 40)
-	button.Fill(color.RGBA{50, 50, 50, 255})
+	m.createButton = ebiten.NewImage(150, 40)
+	m.createButton.Fill(color.RGBA{50, 50, 50, 255})
 
 	op := &ebiten.DrawImageOptions{}
 	op.GeoM.Translate(240, 200)
 
-	screen.DrawImage(button, op)
+	screen.DrawImage(m.createButton, op)
 
 	op2 := &text.DrawOptions{}
 	op2.GeoM.Translate(278, 204)
@@ -65,19 +67,19 @@ func (m *Menu) CreateButton(screen *ebiten.Image, g *Game) {
 
 	cx, cy := ebiten.CursorPosition()
 
-	if button.Bounds().Min.X+240 <= cx && cx < button.Bounds().Max.X+240 && button.Bounds().Min.Y+200 <= cy && cy < button.Bounds().Max.Y+200 {
+	if m.createButton.Bounds().Min.X+240 <= cx && cx < m.createButton.Bounds().Max.X+240 && m.createButton.Bounds().Min.Y+200 <= cy && cy < m.createButton.Bounds().Max.Y+200 {
 		op2.ColorScale.ScaleWithColor(color.RGBA{20, 20, 30, 255})
-		button.Fill(color.RGBA{70, 70, 70, 255})
-		screen.DrawImage(button, op)
+		m.createButton.Fill(color.RGBA{70, 70, 70, 255})
+		screen.DrawImage(m.createButton, op)
 	}
 
-	if inpututil.IsMouseButtonJustPressed(ebiten.MouseButtonLeft) {
-		if button.Bounds().Min.X+240 <= cx && cx < button.Bounds().Max.X+240 && button.Bounds().Min.Y+200 <= cy && cy < button.Bounds().Max.Y+200 {
-			log.Printf("Create")
-			//g.createMap = true
-			screen.Clear()
+	/*
+		if inpututil.IsMouseButtonJustPressed(ebiten.MouseButtonLeft) {
+			if m.createButton.Bounds().Min.X+240 <= cx && cx < m.createButton.Bounds().Max.X+240 && m.createButton.Bounds().Min.Y+200 <= cy && cy < m.createButton.Bounds().Max.Y+200 {
+				log.Printf("Create")
+			}
 		}
-	}
+	*/
 
 	text.Draw(screen, "Create", &text.GoTextFace{
 		Source: fontFaceSource,

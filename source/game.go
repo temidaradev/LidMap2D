@@ -25,6 +25,13 @@ func NewGame() *Game {
 }
 
 func (g *Game) Update() error {
+	cx, cy := ebiten.CursorPosition()
+	if inpututil.IsMouseButtonJustPressed(ebiten.MouseButtonLeft) {
+		if g.m.createButton.Bounds().Min.X+240 <= cx && cx < g.m.createButton.Bounds().Max.X+240 && g.m.createButton.Bounds().Min.Y+200 <= cy && cy < g.m.createButton.Bounds().Max.Y+200 {
+			log.Print("dflkbnkfbn")
+			g.createMap = true
+		}
+	}
 	return nil
 }
 
@@ -38,8 +45,8 @@ func (g *Game) Draw(screen *ebiten.Image) {
 		g.m.showMenu(screen, g)
 	}
 
-	if g.createMap && g.isButtonDeactive {
-		g.m.clearMenu(screen)
+	if g.createMap {
+		screen.Clear()
 	}
 
 	if inpututil.IsKeyJustPressed(ebiten.KeyS) {
