@@ -17,5 +17,3 @@ func main() {
 		log.Fatal(err)
 	}
 }
-
-//knasdghfpouhşlaksdfjşlkasdjfşlasdkjfşlaskdjfaşsldkjfasşldkjfşlasdkjfaşsldkjf
