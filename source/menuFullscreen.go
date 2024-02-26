@@ -1,5 +1,6 @@
 package game
 
+/*
 import (
 	"bytes"
 	"image/color"
@@ -114,3 +115,4 @@ func (m *MenuFullScreen) showFullMenu(screen *ebiten.Image, g *Game) {
 	m.CreateButtonFullScreen(screen, g)
 	m.SettingButtonFullScreen(screen)
 }
+*/

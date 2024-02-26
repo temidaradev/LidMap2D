@@ -13,6 +13,7 @@ import (
 
 type Menu struct {
 	createButton   *ebiten.Image
+	isCreateButton bool
 	settingsButton *ebiten.Image
 }
 
@@ -36,6 +37,23 @@ const (
 	normalFontSize = 24
 	bigFontSize    = 48
 )
+
+func (m *Menu) Draw(screen *ebiten.Image) {
+	m.Title(screen)
+	m.CreateButton(screen, &Game{})
+	m.SettingButton(screen)
+}
+
+func (m *Menu) Update() error {
+	cx, cy := ebiten.CursorPosition()
+	if inpututil.IsMouseButtonJustPressed(ebiten.MouseButtonLeft) {
+		if m.createButton.Bounds().Min.X+240 <= cx && cx < m.createButton.Bounds().Max.X+240 && m.createButton.Bounds().Min.Y+200 <= cy && cy < m.createButton.Bounds().Max.Y+200 {
+			log.Print("dflkbnkfbn")
+			m.isCreateButton = true
+		}
+	}
+	return nil
+}
 
 func (m *Menu) Title(screen *ebiten.Image) {
 	screen.Fill(Grey)
@@ -118,14 +136,4 @@ func (m *Menu) SettingButton(screen *ebiten.Image) {
 		Source: fontFaceSource,
 		Size:   normalFontSize,
 	}, op2)
-}
-
-func (m *Menu) showMenu(screen *ebiten.Image, g *Game) {
-	m.Title(screen)
-	m.CreateButton(screen, g)
-	m.SettingButton(screen)
-}
-
-func (m *Menu) clearMenu(screen *ebiten.Image) {
-	screen.Clear()
 }
