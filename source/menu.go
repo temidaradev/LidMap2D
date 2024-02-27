@@ -100,14 +100,6 @@ func (m *Menu) CreateButton(screen *ebiten.Image, g *Game) {
 		screen.DrawImage(m.createButton, op)
 	}
 
-	/*
-		if inpututil.IsMouseButtonJustPressed(ebiten.MouseButtonLeft) {
-			if m.createButton.Bounds().Min.X+240 <= cx && cx < m.createButton.Bounds().Max.X+240 && m.createButton.Bounds().Min.Y+200 <= cy && cy < m.createButton.Bounds().Max.Y+200 {
-				log.Printf("Create")
-			}
-		}
-	*/
-
 	text.Draw(screen, "Create", &text.GoTextFace{
 		Source: fontFaceSource,
 		Size:   normalFontSize,

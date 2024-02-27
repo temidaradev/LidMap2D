@@ -10,10 +10,11 @@ import (
 )
 
 type Game struct {
-	m  Menu
-	d  Designer
-	md bool
-	//mFull            MenuFullScreen
+	m            Menu
+	d            Designer
+	md           bool
+	isFullScreen bool
+	mFull        MenuFullScreen
 }
 
 func NewGame() *Game {
@@ -23,8 +24,12 @@ func NewGame() *Game {
 }
 
 func (g *Game) Update() error {
+	full := ebiten.IsFullscreen()
 	if !g.md {
 		g.m.Update(g)
+		if full {
+			g.mFull.UpdateFull(g)
+		}
 	} else {
 		g.d.Update()
 	}
@@ -33,8 +38,12 @@ func (g *Game) Update() error {
 }
 
 func (g *Game) Draw(screen *ebiten.Image) {
+	full := ebiten.IsFullscreen()
 	if !g.md {
 		g.m.Draw(screen)
+		if full {
+			g.mFull.DrawFull(screen)
+		}
 	} else {
 		g.d.Draw(screen)
 	}
