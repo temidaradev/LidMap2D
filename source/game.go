@@ -10,7 +10,9 @@ import (
 )
 
 type Game struct {
-	m Menu
+	m  Menu
+	d  Designer
+	md bool
 	//mFull            MenuFullScreen
 }
 
@@ -21,15 +23,20 @@ func NewGame() *Game {
 }
 
 func (g *Game) Update() error {
-	g.m.Update()
+	if !g.md {
+		g.m.Update(g)
+	} else {
+		g.d.Update()
+	}
+
 	return nil
 }
 
 func (g *Game) Draw(screen *ebiten.Image) {
-	g.m.Draw(screen)
-
-	if g.m.isCreateButton {
-		screen.Clear()
+	if !g.md {
+		g.m.Draw(screen)
+	} else {
+		g.d.Draw(screen)
 	}
 
 	if inpututil.IsKeyJustPressed(ebiten.KeyS) {

@@ -44,12 +44,13 @@ func (m *Menu) Draw(screen *ebiten.Image) {
 	m.SettingButton(screen)
 }
 
-func (m *Menu) Update() error {
+func (m *Menu) Update(g *Game) error {
 	cx, cy := ebiten.CursorPosition()
 	if inpututil.IsMouseButtonJustPressed(ebiten.MouseButtonLeft) {
 		if m.createButton.Bounds().Min.X+240 <= cx && cx < m.createButton.Bounds().Max.X+240 && m.createButton.Bounds().Min.Y+200 <= cy && cy < m.createButton.Bounds().Max.Y+200 {
 			log.Print("dflkbnkfbn")
 			m.isCreateButton = true
+			g.md = true
 		}
 	}
 	return nil
