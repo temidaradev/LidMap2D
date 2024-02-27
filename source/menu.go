@@ -18,7 +18,8 @@ type Menu struct {
 }
 
 var (
-	fontFaceSource *text.GoTextFaceSource
+	fontFaceSource  *text.GoTextFaceSource
+	fontFaceSource2 *text.GoTextFaceSource
 )
 
 var (
@@ -31,10 +32,17 @@ func init() {
 		log.Fatal(err)
 	}
 	fontFaceSource = s
+
+	s2, err := text.NewGoTextFaceSource(bytes.NewReader(assets.Sans_ttf))
+	if err != nil {
+		log.Fatal(err)
+	}
+	fontFaceSource2 = s2
 }
 
 const (
 	normalFontSize = 24
+	midFontSize    = 32
 	bigFontSize    = 48
 )
 
@@ -107,13 +115,13 @@ func (m *Menu) CreateButton(screen *ebiten.Image, g *Game) {
 }
 
 func (m *Menu) SettingButton(screen *ebiten.Image) {
-	button := ebiten.NewImage(150, 40)
-	button.Fill(color.RGBA{50, 50, 50, 255})
+	m.settingsButton = ebiten.NewImage(150, 40)
+	m.settingsButton.Fill(color.RGBA{50, 50, 50, 255})
 
 	op := &ebiten.DrawImageOptions{}
 	op.GeoM.Translate(240, 250)
 
-	screen.DrawImage(button, op)
+	screen.DrawImage(m.settingsButton, op)
 
 	op2 := &text.DrawOptions{}
 	op2.GeoM.Translate(270, 254)
@@ -121,14 +129,23 @@ func (m *Menu) SettingButton(screen *ebiten.Image) {
 
 	cx, cy := ebiten.CursorPosition()
 
-	if button.Bounds().Min.X+240 <= cx && cx < button.Bounds().Max.X+240 && button.Bounds().Min.Y+250 <= cy && cy < button.Bounds().Max.Y+250 {
+	if m.settingsButton.Bounds().Min.X+240 <= cx && cx < m.settingsButton.Bounds().Max.X+240 && m.settingsButton.Bounds().Min.Y+250 <= cy && cy < m.settingsButton.Bounds().Max.Y+250 {
 		op2.ColorScale.ScaleWithColor(color.RGBA{20, 20, 30, 255})
-		button.Fill(color.RGBA{70, 70, 70, 255})
-		screen.DrawImage(button, op)
+		m.settingsButton.Fill(color.RGBA{70, 70, 70, 255})
+		screen.DrawImage(m.settingsButton, op)
+
+		op3 := &text.DrawOptions{}
+		op3.GeoM.Translate(175, 300)
+		op3.ColorScale.ScaleWithColor(color.White)
+
+		text.Draw(screen, "Coming Not Soon!", &text.GoTextFace{
+			Source: fontFaceSource2,
+			Size:   midFontSize,
+		}, op3)
 	}
 
 	if inpututil.IsMouseButtonJustPressed(ebiten.MouseButtonLeft) {
-		if button.Bounds().Min.X+240 <= cx && cx < button.Bounds().Max.X+240 && button.Bounds().Min.Y+250 <= cy && cy < button.Bounds().Max.Y+250 {
+		if m.settingsButton.Bounds().Min.X+240 <= cx && cx < m.settingsButton.Bounds().Max.X+240 && m.settingsButton.Bounds().Min.Y+250 <= cy && cy < m.settingsButton.Bounds().Max.Y+250 {
 			log.Printf("Settings")
 		}
 	}
