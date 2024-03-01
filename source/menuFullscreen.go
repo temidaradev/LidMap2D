@@ -12,7 +12,6 @@ import (
 )
 
 type MenuFullScreen struct {
-	createMap     bool
 	createFull    *ebiten.Image
 	createSettigs *ebiten.Image
 }
@@ -88,13 +87,13 @@ func (m *MenuFullScreen) CreateButtonFullScreen(screen *ebiten.Image, g *Game) {
 }
 
 func (m *MenuFullScreen) SettingButtonFullScreen(screen *ebiten.Image) {
-	button := ebiten.NewImage(180, 50)
-	button.Fill(color.RGBA{50, 50, 50, 255})
+	m.createSettigs = ebiten.NewImage(180, 50)
+	m.createSettigs.Fill(color.RGBA{50, 50, 50, 255})
 
 	op := &ebiten.DrawImageOptions{}
 	op.GeoM.Translate(630, 465)
 
-	screen.DrawImage(button, op)
+	screen.DrawImage(m.createSettigs, op)
 
 	op2 := &text.DrawOptions{}
 	op2.GeoM.Translate(674, 473)
@@ -102,10 +101,10 @@ func (m *MenuFullScreen) SettingButtonFullScreen(screen *ebiten.Image) {
 
 	cx, cy := ebiten.CursorPosition()
 
-	if button.Bounds().Min.X+630 <= cx && cx < button.Bounds().Max.X+630 && button.Bounds().Min.Y+465 <= cy && cy < button.Bounds().Max.Y+465 {
+	if m.createSettigs.Bounds().Min.X+630 <= cx && cx < m.createSettigs.Bounds().Max.X+630 && m.createSettigs.Bounds().Min.Y+465 <= cy && cy < m.createSettigs.Bounds().Max.Y+465 {
 		op2.ColorScale.ScaleWithColor(color.RGBA{20, 20, 30, 255})
-		button.Fill(color.RGBA{70, 70, 70, 255})
-		screen.DrawImage(button, op)
+		m.createSettigs.Fill(color.RGBA{70, 70, 70, 255})
+		screen.DrawImage(m.createSettigs, op)
 
 		op3 := &text.DrawOptions{}
 		op3.GeoM.Translate(583, 530)
@@ -118,7 +117,7 @@ func (m *MenuFullScreen) SettingButtonFullScreen(screen *ebiten.Image) {
 	}
 
 	if inpututil.IsMouseButtonJustPressed(ebiten.MouseButtonLeft) {
-		if button.Bounds().Min.X+630 <= cx && cx < button.Bounds().Max.X+630 && button.Bounds().Min.Y+465 <= cy && cy < button.Bounds().Max.Y+465 {
+		if m.createSettigs.Bounds().Min.X+630 <= cx && cx < m.createSettigs.Bounds().Max.X+630 && m.createSettigs.Bounds().Min.Y+465 <= cy && cy < m.createSettigs.Bounds().Max.Y+465 {
 			log.Printf("Settings")
 		}
 	}
@@ -127,10 +126,4 @@ func (m *MenuFullScreen) SettingButtonFullScreen(screen *ebiten.Image) {
 		Source: fontFaceSource,
 		Size:   normalFontSize,
 	}, op2)
-}
-
-func (m *MenuFullScreen) showFullMenu(screen *ebiten.Image, g *Game) {
-	m.TitleFullScreen(screen)
-	m.CreateButtonFullScreen(screen, g)
-	m.SettingButtonFullScreen(screen)
 }

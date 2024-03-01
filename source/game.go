@@ -10,11 +10,10 @@ import (
 )
 
 type Game struct {
-	m            Menu
-	d            Designer
-	md           bool
-	isFullScreen bool
-	mFull        MenuFullScreen
+	m     Menu
+	d     Designer
+	md    bool
+	mFull MenuFullScreen
 }
 
 func NewGame() *Game {
