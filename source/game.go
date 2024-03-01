@@ -53,6 +53,7 @@ func (g *Game) Draw(screen *ebiten.Image) {
 		if err != nil {
 			log.Fatal("can't create file: ", err)
 		}
+		log.Print("Got A Screenshot")
 		png.Encode(f, screen)
 	}
 }
